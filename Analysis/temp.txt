@@ -1,0 +1,82 @@
+NaNO3+CTC.density.avg.dat
+Water Fit Data:
+Z0 =   -0.000
+d =    3.264
+90-10 =    7.171
+pI =    1.019
+
+Anion
+	a =    0.227
+	b =    0.655
+	c =    1.520
+	Peak Center =    0.691
+
+	Z0 =   -0.962
+	d =   -0.407
+	$\rho_I$ =   -0.001
+
+Cation
+	a =    0.039
+	b =   -1.614
+	c =    1.982
+	Peak Center =   -2.909
+
+	Z0 =   -2.769
+	d =    1.384
+	$\rho_I$ =    0.029
+
+----------------------------
+Na2SO4+CTC.density.avg.dat
+Water Fit Data:
+Z0 =    0.000
+d =    1.271
+90-10 =    2.793
+pI =    0.870
+
+Anion
+	a =    0.228
+	b =   -3.551
+	c =    1.162
+	Peak Center =   -3.568
+
+	Z0 =   -5.595
+	d =    2.307
+	$\rho_I$ =    0.092
+
+Cation
+	a =    0.021
+	b =   -5.119
+	c =    1.349
+	Peak Center =   -5.268
+
+	Z0 =   -2.680
+	d =    1.256
+	$\rho_I$ =    0.057
+
+--------------------------
+NaCl+CTC.density.avg.dat
+Water Fit Data:
+Z0 =   -0.000
+d =    1.732
+90-10 =    3.806
+pI =    0.895
+
+Anion
+	a =    0.082
+	b =   -1.726
+	c =    1.361
+	Peak Center =   -1.938
+
+	Z0 =   -3.190
+	d =    1.928
+	$\rho_I$ =    0.044
+
+Cation
+	a =    0.047
+	b =   -3.934
+	c =    1.735
+	Peak Center =   -4.338
+
+	Z0 =   -5.372
+	d =    1.636
+	$\rho_I$ =    0.031
