@@ -14,7 +14,7 @@ class OrderParameters:
 	def __init__(self, system):
 
 		
-		self.data = self.DataDict(system+'.orderparams.avg.dat')
+		self.data = self.DataDict('../OrderParameters/'+system+'.orderparams.avg.dat')
 		density = DensityProfiler(['../Densities/'+system+'.density.avg.dat'])
 		self.dens = density.data[0]
 		self.fits = density.fits[0]
@@ -31,8 +31,6 @@ class OrderParameters:
 					  'sinthetasqcos2phi':24, 'sinthetasqcos2psi':25,
 					  'n':26
 		}
-
-
 
 	def DataDict(self, filename):
 
@@ -57,19 +55,34 @@ class OrderParameters:
 		S1ax = fig.add_subplot(2,1,1)	
 		S2ax = fig.add_subplot(2,1,2)
 		#dens = fig.add_subplot(3,1,3)
+		
+		# some labels for the plot
+		S1ax.set_title ('Water Order Parameters', size=25)
+		S2ax.set_xlabel(r'Distance to Interface / $\AA$', size=20)
+		S1ax.set_ylabel(r'S$_1=\frac{1}{2}\left<3\cos^2\theta-1\right>$', size=20)
+		S2ax.set_ylabel(r'S$_2=\frac{\left<\sin^2\theta\cos2\psi\right>}{\left<\sin^2\theta\right>}$', size=20)
 
 		xmin = -10
 		xmax = 10
-		# plot the S1 curve
 		x = d[self.names['x']]
+		n = d[self.names['n']]
+
 		s1 = d[self.names['cossqtheta']]
+		# calculates S1 order parameter
 		for i in range(len(s1)):
-			s1[i] = 0.5*(3.0*s1[i]-1.0)
-		S1ax.plot(d[self.names['x']],s1,'k', linewidth=3, label='s1')
-		S1ax.set_ylim(-0.2,0.1)
+			s1[i] = 0.5*(3.0*s1[i]/n[i]-1.0)
+		# plot the S1 curve
+		S1ax.plot(x,s1,'k', linewidth=3)
+		S1ax.set_ylim(-0.2,0.05)
+
+		# calculate the S2 curve
+		s2 = d[self.names['sinthetasqcos2psi']]
+		s2_den = d[self.names['sinsqtheta']]
+		for i in range(len(s2)):
+			s2[i] = s2[i] / s2_den[i]
 		# plot the S2 curve
-		#S2ax.plot(d['x'],d['S2'],'k', linewidth=3)
-		#S2ax.set_ylim(-0.4,0.25)
+		S2ax.plot(x,s2,'k', linewidth=3)
+		S2ax.set_ylim(-0.4,0.25)
 
 		# shows the interface and plots vertical reference lines where the ions peak
 		for ax in fig.get_axes():
@@ -79,18 +92,21 @@ class OrderParameters:
 				ax.axvline(self.fits['anion_max'], color='r', linestyle='dotted', linewidth=3)
 				ax.axvline(self.fits['cation_max'], color='b', linestyle='dotted', linewidth=3)
 			ax.set_xlim([xmin,xmax])
+
+
 	
 		# setup a new axis for plotting the fits for reference
-		ref_ax = S2ax.twinx()
+		#ref_ax = S2ax.twinx()
 		# plot the water fit for reference
-		ref_ax.plot(self.fits['position'],self.fits['h2o'],'k:', linewidth=3, label=r'H$_2$O')
+		#ref_ax.plot(self.fits['position'],self.fits['h2o'],'k:', linewidth=3, label=r'H$_2$O')
 		# plot the ion fit lines for reference
 		#if len(self.dens['anion']) > 0:
 		#	ref_ax.plot(self.fits['position'],self.fits['anion'],'r:', linewidth=3, label='Anion')
 		#	ref_ax.plot(self.fits['position'],self.fits['cation'],'b:', linewidth=3, label='Cation')
 
-		ref_ax.set_xlim([xmin,xmax])
+		#ref_ax.set_xlim([xmin,xmax])
 
+		'''
 		# Set some legend properties
 		#print tuple(coordinations + fits)
 		#leg = ax.legend(coordinations + fits, 'best', shadow=True)
@@ -107,13 +123,11 @@ class OrderParameters:
 		# matplotlib.lines.Line2D instances
 		for l in leg.get_lines(): 
 			l.set_linewidth(2.0)  # the legend line width
-
+		'''
 
 		plt.show()
 '''
-		rho.set_xlabel(r'Distance to Interface / $\AA$', size=20)
 		S1ax.set_xticklabels([])
-		S1ax.set_ylabel(r'S$_1$', size=20)
 		S2ax.set_xticklabels([])
 		S2ax.set_ylabel(r'S$_2$', size=20)
 		rho.set_ylabel(r'Density / $\frac{g}{ml}$', size=20)
@@ -121,7 +135,6 @@ class OrderParameters:
 		for label in rho.get_xticklabels() + rho.get_yticklabels() + S1ax.get_yticklabels() + S2ax.get_yticklabels():
 			label.set_fontsize(20)
 
-		S1ax.set_title ('Water Order Parameters', size=25)
 
 		S1ax.set_ylim([-0.25, 0.05])
 		S2ax.set_ylim([-0.3, 0.3])
