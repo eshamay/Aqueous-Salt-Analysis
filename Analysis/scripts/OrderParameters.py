@@ -75,14 +75,15 @@ class OrderParameters:
 		S1ax.plot(x,s1,'k', linewidth=3)
 		S1ax.set_ylim(-0.2,0.05)
 
-		# calculate the S2 curve
 		s2 = d[self.names['sinthetasqcos2psi']]
 		s2_den = d[self.names['sinsqtheta']]
 		for i in range(len(s2)):
-			s2[i] = s2[i] / s2_den[i]
+			s2[i] = -s2[i] / s2_den[i]
 		# plot the S2 curve
 		S2ax.plot(x,s2,'k', linewidth=3)
-		S2ax.set_ylim(-0.4,0.25)
+
+		S2ax.set_ylim(-0.2,0.21)
+
 
 		# shows the interface and plots vertical reference lines where the ions peak
 		for ax in fig.get_axes():
@@ -96,15 +97,15 @@ class OrderParameters:
 
 	
 		# setup a new axis for plotting the fits for reference
-		#ref_ax = S2ax.twinx()
+		ref_ax = S2ax.twinx()
 		# plot the water fit for reference
-		#ref_ax.plot(self.fits['position'],self.fits['h2o'],'k:', linewidth=3, label=r'H$_2$O')
+		ref_ax.plot(self.fits['position'],self.fits['h2o'],'k:', linewidth=3, label=r'H$_2$O')
 		# plot the ion fit lines for reference
 		#if len(self.dens['anion']) > 0:
 		#	ref_ax.plot(self.fits['position'],self.fits['anion'],'r:', linewidth=3, label='Anion')
 		#	ref_ax.plot(self.fits['position'],self.fits['cation'],'b:', linewidth=3, label='Cation')
 
-		#ref_ax.set_xlim([xmin,xmax])
+		ref_ax.set_xlim([xmin,xmax])
 
 		'''
 		# Set some legend properties
