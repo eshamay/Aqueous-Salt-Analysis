@@ -14,10 +14,10 @@ class Coordinator:
 		self.normalize = norm
 
 		for file in files:
-			d = self.DataDict(file + ".coordination.avg.dat")
+			d = self.DataDict("../Coordinations/" + file + ".coordination.avg.dat")
 			print file
 			self.data.append(d)
-			dens = DensityProfiler([file + ".density.avg.dat"])
+			dens = DensityProfiler(["../Densities/" + file + ".density.avg.dat"])
 			self.density.append(dens)
 		
 	def DataDict(self,file):
